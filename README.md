@@ -9,3 +9,7 @@
 ## Login 
    component added
    validator logic added
+## Routes
+   Installed react-router-dom
+   AuthContext, Protected routes added
+   Header moved to as common

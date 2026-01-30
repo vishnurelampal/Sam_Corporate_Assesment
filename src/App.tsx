@@ -1,11 +1,8 @@
-import LoginMain from "./components/login/LoginMain";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes/AppRouter";
 
 const App = () => {
-  return (
-    <div>
-      <LoginMain />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;
