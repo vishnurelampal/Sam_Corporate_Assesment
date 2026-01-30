@@ -1,3 +1,4 @@
+import { logoUrl } from "../../constants/url";
 import { useAuth } from "../../context/AuthContext";
 const Header = () => {
   const { Auth } = useAuth() as { Auth: boolean };
@@ -5,9 +6,15 @@ const Header = () => {
     logout: () => void;
   };
   return (
-    <div className="navbar bg-black shadow-sm text-white">
+    <div className="navbar bg-[#F7F7F7] shadow-sm text-black">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Sam Corporate</a>
+        <a className="btn btn-ghost text-xl">
+          <img
+            src={logoUrl}
+            className="h-19 w-36 mr-2"
+            alt="Sam Corporate Logo"
+          />
+        </a>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">

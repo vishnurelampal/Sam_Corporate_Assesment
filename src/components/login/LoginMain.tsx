@@ -2,25 +2,35 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import type { AuthContextType } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
+import { CheckEmail, CheckPassword } from "../../utils/validator";
+import { bgImageUrl } from "../../constants/url";
 const LoginMain = () => {
   const [inputVal, setInputVal] = useState({
-    username: "user",
-    password: "password",
+    username: "sample@gmail.com",
+    password: "12345!@Aa",
   });
-  const [errorMessage] = useState<string>("Error logging in");
+
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { login } = useAuth() as AuthContextType;
   const navigate = useNavigate();
 
   function handelLogin() {
-    login();
-    navigate("/dashboard");
+    if (!CheckEmail(inputVal.username)) setErrorMessage("Invalid email");
+    if (!CheckPassword(inputVal.password)) setErrorMessage("Invalid password");
+    if (CheckEmail(inputVal.username) && CheckPassword(inputVal.password)) {
+      login();
+      navigate("/dashboard");
+    }
   }
-
+  console.log(bgImageUrl);
   return (
-    <div>
+    <div
+      className="bg-cover bg-center min-h-screen p-2"
+      style={{ backgroundImage: `url(${bgImageUrl})` }}
+    >
       <div className="flex justify-center align-middle mt-20">
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          <legend className="fieldset-legend">Login</legend>
+          <legend className="fieldset-legend pt-11.25">Login</legend>
           <label className="label">Username</label>
           <input
             type="text"
