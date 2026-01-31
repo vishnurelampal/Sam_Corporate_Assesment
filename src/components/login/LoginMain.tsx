@@ -24,7 +24,7 @@ const LoginMain = () => {
       login();
       navigate("/dashboard", { replace: true });
     }
-    setShowLoader(true);
+    setShowLoader(false);
   }
   return (
     <div
