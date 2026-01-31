@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  getFilteredRowModel,
   flexRender,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
 
-function EmployeeTable({ data }: { data: any[] }) {
+function EmployeeTable({ data }: { data: unknown[] }) {
   const [sorting, setSorting] = useState<any[]>([]);
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const columns = useMemo(
     () => [
@@ -39,16 +42,33 @@ function EmployeeTable({ data }: { data: any[] }) {
   const table = useReactTable({
     data,
     columns,
-    state: { sorting },
+    state: {
+      sorting,
+      globalFilter,
+    },
     onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
   });
 
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto rounded-xl bg-white shadow-sm">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <input
+          value={globalFilter ?? ""}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          placeholder="Search employees..."
+          className="w-full rounded-lg border px-3 py-2 text-sm md:max-w-xs"
+        />
+        <p className="text-sm text-gray-500">
+          {table.getFilteredRowModel().rows.length} records
+        </p>
+      </div>
+
+      <div className="min-h-90 overflow-x-auto rounded-xl bg-white shadow-sm">
         <table className="min-w-full text-sm">
           <thead className="bg-gray-100">
             {table.getHeaderGroups().map((group) => (
@@ -57,12 +77,20 @@ function EmployeeTable({ data }: { data: any[] }) {
                   <th
                     key={header.id}
                     onClick={header.column.getToggleSortingHandler()}
-                    className="cursor-pointer px-4 py-3 text-left font-medium text-gray-700"
+                    className="group cursor-pointer px-4 py-3 text-left font-medium text-gray-700 hover:bg-gray-50"
                   >
-                    {flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                    <div className="flex items-center gap-2">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                      <span className="text-xs text-gray-400 group-hover:text-gray-600">
+                        {{
+                          asc: "↑",
+                          desc: "↓",
+                        }[header.column.getIsSorted() as string] ?? "↕"}
+                      </span>
+                    </div>
                   </th>
                 ))}
               </tr>
@@ -70,15 +98,29 @@ function EmployeeTable({ data }: { data: any[] }) {
           </thead>
 
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-t">
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-4 py-2 text-gray-600">
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
+            {table.getRowModel().rows.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className="h-40 text-center text-sm text-gray-500"
+                >
+                  No match found
+                </td>
               </tr>
-            ))}
+            ) : (
+              table.getRowModel().rows.map((row) => (
+                <tr key={row.id} className="border-t">
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className="px-4 py-2 text-gray-600">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

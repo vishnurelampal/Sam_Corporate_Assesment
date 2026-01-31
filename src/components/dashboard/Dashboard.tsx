@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import type { AuthContextType } from "../../context/AuthContext";
@@ -6,12 +6,20 @@ import FileUpload from "./FileUpload";
 import SummaryCards from "./SummaryCards";
 import ChartsSection from "./ChartSection";
 import EmployeeTable from "../table/Table";
+import EmptyState from "./EmptyStatee";
+
+interface EmployeeData {
+  Department: string;
+  Role: string;
+  [key: string]: unknown;
+}
 
 const Dashboard = () => {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<EmployeeData[]>([]);
+  const [dept] = useState("");
+  const [role] = useState("");
   const { logout } = useAuth() as AuthContextType;
   const navigate = useNavigate();
-
   useEffect(() => {
     const handlePopState = () => {
       logout();
@@ -24,7 +32,13 @@ const Dashboard = () => {
       window.removeEventListener("popstate", handlePopState);
     };
   }, [logout, navigate]);
-
+  const filteredData = useMemo(() => {
+    return data.filter((d) => {
+      if (dept && d.Department !== dept) return false;
+      if (role && d.Role !== role) return false;
+      return true;
+    });
+  }, [data, dept, role]);
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-8">
       <div className="mx-auto max-w-7xl space-y-6">
@@ -35,11 +49,15 @@ const Dashboard = () => {
           <FileUpload setData={setData} />
         </div>
 
-        <SummaryCards data={data} />
-
-        <ChartsSection data={data} />
-
-        <EmployeeTable data={data} />
+        {data.length === 0 ? (
+          <EmptyState />
+        ) : (
+          <>
+            <SummaryCards data={filteredData} />
+            <ChartsSection data={filteredData} />
+            <EmployeeTable data={filteredData} />
+          </>
+        )}
       </div>
     </div>
   );
