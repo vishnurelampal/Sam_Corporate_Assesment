@@ -61,8 +61,9 @@ function EmployeeTable({ data }: { data: unknown[] }) {
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
           placeholder="Search employees..."
-          className="w-full rounded-lg border px-3 py-2 text-sm md:max-w-xs"
+          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 md:max-w-xs"
         />
+
         <p className="text-sm text-gray-500">
           {table.getFilteredRowModel().rows.length} records
         </p>
@@ -125,24 +126,24 @@ function EmployeeTable({ data }: { data: unknown[] }) {
         </table>
       </div>
 
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-gray-500">
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </p>
 
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-2">
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className={`rounded-md border px-3 py-1 text-sm disabled:opacity-50 ${table.getCanPreviousPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
+            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
           >
             Prev
           </button>
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className={`rounded-md border px-3 py-1 text-sm disabled:opacity-50 ${table.getCanNextPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
+            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
           >
             Next
           </button>
