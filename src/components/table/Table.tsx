@@ -123,14 +123,14 @@ function EmployeeTable({ data }: { data: unknown[] }) {
             <button
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
-              className="w-full rounded-md border border-gray-400 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:opacity-100 sm:w-auto"
+              className={`w-full rounded-md border border-gray-400 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:opacity-100 sm:w-auto ${table.getCanPreviousPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
             >
               Prev
             </button>
             <button
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
-              className="w-full rounded-md border border-gray-400 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:opacity-100 sm:w-auto"
+              className={`w-full rounded-md border border-gray-400 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:opacity-100 sm:w-auto ${table.getCanNextPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
             >
               Next
             </button>
