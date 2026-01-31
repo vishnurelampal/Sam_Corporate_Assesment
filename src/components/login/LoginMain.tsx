@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import type { AuthContextType } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
@@ -9,7 +9,6 @@ const LoginMain = () => {
     username: "sample@gmail.com",
     password: "12345!@Aa",
   });
-
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { login } = useAuth() as AuthContextType;
   const navigate = useNavigate();
@@ -19,10 +18,9 @@ const LoginMain = () => {
     if (!CheckPassword(inputVal.password)) setErrorMessage("Invalid password");
     if (CheckEmail(inputVal.username) && CheckPassword(inputVal.password)) {
       login();
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     }
   }
-  console.log(bgImageUrl);
   return (
     <div
       className="bg-cover bg-center min-h-screen p-2"
