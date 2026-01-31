@@ -1,10 +1,11 @@
 ## Project Setted up
 ## Tech Used
    React + TypeScript
-   Tailwind CSS
-   daisy UI
+   Tailwind CSS for styling
+   daisy UI for custome component
    recharts for data diagrams
-   tanstack/react-table
+   tanstack/react-table for table
+   lucide for icons
 ## Folder Structered 
 ## Common component 
    Header added
@@ -15,4 +16,5 @@
    Installed react-router-dom
    AuthContext, Protected routes added
    Header moved to as common
+   Loader added
 
