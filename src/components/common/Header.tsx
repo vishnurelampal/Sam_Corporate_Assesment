@@ -8,10 +8,10 @@ const Header = () => {
   return (
     <div className="navbar bg-[#F7F7F7] shadow-sm text-black">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">
+        <a className=" btn-ghost text-xl">
           <img
             src={logoUrl}
-            className="h-19 w-36 mr-2"
+            className="h-19 w-36 mr-2 cursor-pointer"
             alt="Sam Corporate Logo"
           />
         </a>
