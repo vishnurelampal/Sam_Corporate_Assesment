@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import BaseScreen from "../../BaseScreen";
+import BaseScreen from "../BaseScreen";
 import LoginMain from "../components/login/LoginMain";
 import Dashboard from "../components/dashboard/Dashboard";
 
