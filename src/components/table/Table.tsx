@@ -135,14 +135,14 @@ function EmployeeTable({ data }: { data: unknown[] }) {
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
+            className={`rounded-md border px-3 py-1 text-sm disabled:opacity-50 ${table.getCanPreviousPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
           >
             Prev
           </button>
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
+            className={`rounded-md border px-3 py-1 text-sm disabled:opacity-50 ${table.getCanNextPage() ? "cursor-pointer" : "cursor-not-allowed"}`}
           >
             Next
           </button>
