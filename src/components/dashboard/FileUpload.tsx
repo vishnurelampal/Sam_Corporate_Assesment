@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { parseExcelFile } from "../../utils/excelParser";
 
-function FileUpload({ setData }: { setData: (data: unknown[]) => void }) {
+interface EmployeeData {
+  Department: string;
+  Role: string;
+  [key: string]: unknown;
+}
+function FileUpload({ setData }: { setData: (data: EmployeeData[]) => void }) {
   const [loading, setLoading] = useState(false);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
