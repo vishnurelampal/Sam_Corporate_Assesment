@@ -109,27 +109,32 @@ function EmployeeTable({ data }: { data: unknown[] }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm text-gray-500">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
-        </p>
+      <div
+        className="sticky bottom-0 z-10 bg-white px-4 py-3 shadow-[0_-1px_4px_rgba(0,0,0,0.05)] sm:static sm:shadow-none"
+        style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      >
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-gray-500">
+            Page {table.getState().pagination.pageIndex + 1} of{" "}
+            {table.getPageCount()}
+          </p>
 
-        <div className="flex gap-2">
-          <button
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            className="w-full rounded-md border px-4 py-2 text-sm disabled:opacity-50 sm:w-auto"
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            className="w-full rounded-md border px-4 py-2 text-sm disabled:opacity-50 sm:w-auto"
-          >
-            Next
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              className="w-full rounded-md border px-4 py-2 text-sm disabled:opacity-50 sm:w-auto"
+            >
+              Prev
+            </button>
+            <button
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              className="w-full rounded-md border px-4 py-2 text-sm disabled:opacity-50 sm:w-auto"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>
