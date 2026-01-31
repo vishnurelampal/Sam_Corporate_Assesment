@@ -3,6 +3,8 @@
    React + TypeScript
    Tailwind CSS
    daisy UI
+   recharts for data diagrams
+   tanstack/react-table
 ## Folder Structered 
 ## Common component 
    Header added
@@ -13,3 +15,4 @@
    Installed react-router-dom
    AuthContext, Protected routes added
    Header moved to as common
+
