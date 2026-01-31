@@ -4,7 +4,9 @@ import type { AuthContextType } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { CheckEmail, CheckPassword } from "../../utils/validator";
 import { bgImageUrl } from "../../constants/url";
+import Loader from "../common/Loader";
 const LoginMain = () => {
+  const [showLoader, setShowLoader] = useState<boolean>(false);
   const [inputVal, setInputVal] = useState({
     username: "sample@gmail.com",
     password: "12345!@Aa",
@@ -14,12 +16,15 @@ const LoginMain = () => {
   const navigate = useNavigate();
 
   function handelLogin() {
+    setShowLoader(true);
+    setErrorMessage("");
     if (!CheckEmail(inputVal.username)) setErrorMessage("Invalid email");
     if (!CheckPassword(inputVal.password)) setErrorMessage("Invalid password");
     if (CheckEmail(inputVal.username) && CheckPassword(inputVal.password)) {
       login();
       navigate("/dashboard", { replace: true });
     }
+    setShowLoader(true);
   }
   return (
     <div
@@ -64,6 +69,7 @@ const LoginMain = () => {
           )}
         </fieldset>
       </div>
+      {showLoader && <Loader />}
     </div>
   );
 };
